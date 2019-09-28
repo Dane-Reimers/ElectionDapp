@@ -10,6 +10,7 @@ contract Election {
 
     mapping(address => bool) public voters;
     mapping(uint => Candidate) public candidates;
+    // This is required to keep track of the number of candidates because there is no map.length()
     uint public candidatesCount;
 
     constructor() public {
@@ -26,7 +27,7 @@ contract Election {
 
     function vote(uint candidateId) public {
         require(!voters[msg.sender], "Cannot have already voted");
-        require(candidateId > 0 && candidateId <= candidatesCount,
+        require((candidateId > 0) && (candidateId <= candidatesCount),
             "Must vote for valid candidate");
 
         voters[msg.sender] = true;
